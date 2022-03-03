@@ -25,19 +25,19 @@ namespace Hackaton.Persistence.Configuration
                 adr.Property(a => a.PostalCode).HasMaxLength(24);
             });
 
-            builder.HasData(new Employee
-            {
-                Id = new Guid("0CD7BD00-48C8-4EDD-8953-A925647077A6"),
-                Email = "eu@omeumail.eu",
-                NIF = "12312312",
-                Name = "ines",
-            });
-            builder.OwnsOne(e => e.Address).HasData(new
-            {
-                EmployeeId = new Guid("0CD7BD00-48C8-4EDD-8953-A925647077A6"),
-                City = "TestCity",
-                Line1 = "TestLine"
-            });
+            //builder.HasData(new Employee
+            //{
+            //    Id = new Guid("0CD7BD00-48C8-4EDD-8953-A925647077A6"),
+            //    Email = "eu@omeumail.eu",
+            //    NIF = "12312312",
+            //    Name = "ines",
+            //});
+            //builder.OwnsOne(e => e.Address).HasData(new
+            //{
+            //    EmployeeId = new Guid("0CD7BD00-48C8-4EDD-8953-A925647077A6"),
+            //    City = "TestCity",
+            //    Line1 = "TestLine"
+            //});
         }
     }
 }

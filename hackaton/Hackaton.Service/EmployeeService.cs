@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Hackaton.Application.Common.Models;
 using Hackaton.Application.DataTransferObject;
 using Hackaton.Application.Interfaces.Persistence;
 using Hackaton.Application.Interfaces.Services;
+using Hackaton.Application.Models.Employee;
 using Hackaton.Domain.Entities;
 using Hackaton.Domain.Exceptions.NotFoundException;
+using System.Dynamic;
 
 namespace Hackaton.Service
 {
@@ -54,23 +57,10 @@ namespace Hackaton.Service
             await _repositoryManager.UnitOfWork.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<EmployeeDto>> GetAllAsync(CancellationToken cancellationToken = default, bool trackChanges = false)
+        public async Task<(IEnumerable<ExpandoObject>, MetaData)> GetAllAsync(EmployeeParameters employeeParameters, CancellationToken cancellationToken = default, bool trackChanges = false)
         {
-            var employees = await _repositoryManager.Employee.GetAllAsync(cancellationToken, trackChanges);
-            List<EmployeeDto> employeeDtos = new List<EmployeeDto>();
-            foreach (Employee employee in employees)
-            {
-                employeeDtos.Add(new EmployeeDto
-                {
-                    Id = employee.Id,
-                    Name = employee.Name,
-                    Address = employee.Address?.Line1,
-                    Email = employee.Email,
-                    NIF = employee.NIF,
-                    OldId = employee.OldId
-                });
-            }
-            return employeeDtos;
+            var employees = await _repositoryManager.Employee.GetAllAsync(employeeParameters, cancellationToken, trackChanges);
+            return (employees, employees.MetaData);
         }
 
         public async Task<EmployeeDto> GetByIdAsync(Guid employeeId, CancellationToken cancellationToken = default, bool trackChanges = false)

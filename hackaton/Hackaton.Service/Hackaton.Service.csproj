@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Hackaton.Application\Hackaton.Application.csproj" />
+    <ProjectReference Include="..\Hackaton.Infrastructure.Persistence\Hackaton.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
